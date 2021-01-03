@@ -16,13 +16,12 @@ const horoscope = {
     "Poissons",
     "Verseau",
   ],
-  isLucky: [true, false],
 
   themes: ["Amour", "Quarantaine", "Travail", "Argent", "Santé"],
 
   luckyAdjectives: ["beaucoup", "énormément", "incroyablement", "très"],
 
-  unluckyAjectives: ["très peu", "pas du tout", "peu"],
+  unluckyAdjectives: ["très peu", "pas du tout", "peu"],
 
   luckyDayAdjectives: ["excellente", "merveilleuse", "inoubliable"],
 
@@ -64,6 +63,43 @@ const horoscope = {
     "vous acheter un fauteil roulant vous allez en avoir besoin",
     "prendre rendez-vous chez le médecin",
   ],
+
+  luck() {
+    const luck = [true, false];
+    return luck[Math.floor(Math.random() * luck.length)];
+  },
+
+  adjectives() {
+    if (this.luck()) {
+      const chanceAdjective = this.luckyAdjectives[
+        Math.floor(Math.random() * this.luckyAdjectives.length)
+      ];
+      const dayAdjective = this.luckyAdjectives[
+        Math.floor(Math.random() * this.luckyDayAdjectives.length)
+      ];
+    } else {
+      const chanceAdjective = this.unluckyAdjectives[
+        Math.floor(Math.random() * this.unluckyAdjectives.length)
+      ];
+      const dayAdjective = this.unLuckyDayAdjectives[
+        Math.floor(Math.random() * this.unluckyAdjectives.length)
+      ];
+    }
+  },
+
+  randomSentence() {
+    if (this.luck()) {
+      console.log(
+        `Vous êtes du signe ${
+          this.zodiacSign[Math.floor(Math.random() * this.zodiacSign.length)]
+        }. Sur le thème ${
+          this.themes[Math.floor(Math.random() * this.themes.length)]
+        } et`
+      );
+    } else {
+      console.log("unlucky");
+    }
+  },
 };
 
-
+horoscope.randomSentence();
