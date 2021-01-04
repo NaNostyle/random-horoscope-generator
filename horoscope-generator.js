@@ -194,11 +194,7 @@ const horoscope = {
         return "this is an unexpected action";
     }
   },
-  clg() {
-    console.log(
-      `${this.zodiacSign} ${this.luckAdjective} ${this.dayAdjective} ${this.theme} ${this.action}`
-    );
-  },
+
   sentence() {
     this.randomWords();
     console.log(
@@ -207,4 +203,3 @@ const horoscope = {
   },
 };
 horoscope.sentence();
-// horoscope.clg();
