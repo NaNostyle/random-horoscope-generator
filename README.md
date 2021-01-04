@@ -17,6 +17,6 @@
 
 # Credits
 
-This is a training project, don't take seriously jokes inside the program
+This is a training project, don't take seriously jokes inside the program.
 Thank you to my college for teaching me some key concepts.
-Don't hesitate to make coding reviews and giving advices if you happen to look at the code
+Don't hesitate to make coding reviews and giving advices if you happen to look at the code.
