@@ -4,9 +4,9 @@ const sentence =
 const horoscope = {
   zodiacSign: "",
   theme: "",
-  adjective: "",
+  luckAdjective: "",
+  dayAdjective: "",
   action: "",
-  test: "",
 
   zodiacSigns: [
     "Capricorne",
@@ -25,12 +25,26 @@ const horoscope = {
 
   themes: ["Amour", "Quarantaine", "Travail", "Argent", "Santé"],
 
-  chanceAdjectives: {
+  luckAdjectives: {
     lucky: {
-      adjectives: ["beaucoup", "énormément", "incroyablement", "très"],
+      adjectives: ["beaucoup", "énormément", "incroyablement"],
     },
     unlucky: {
-      adjectives: ["catastrophique", "très mauvaise", "à vite oublier"],
+      adjectives: ["pas du tout", "absolument pas", "très peu"],
+    },
+  },
+
+  dayAdjectives: {
+    lucky: {
+      adjectives: ["merveilleuse", "incroyable", "de rêve", "formidable"],
+    },
+    unlucky: {
+      adjectives: [
+        "catastrophique",
+        "très mauvaise",
+        "à vite oublier",
+        "pourrie",
+      ],
     },
   },
 
@@ -105,22 +119,24 @@ const horoscope = {
   },
 
   isLucky() {
-    const luck = [true, false];
-    return luck[Math.floor(Math.random() * luck.length)];
-  },
-  randomZodicSign() {
-    return this.zodiacSigns.Math.floor(Math.random() * this.zodiacSigns.length);
+    luck = [true, false];
+    return luck[Math.floor(luck.length * Math.random())];
   },
   randomLuckyAction(theme, luck) {
-    return (this.action = this.themeActions[theme][luck].actions.Math.floor(
-      Math.random() * this.themeActions[theme][luck].actions.length
-    ));
+    return (this.action = this.themeActions[theme][luck].actions[
+      Math.floor(Math.random() * this.themeActions[theme][luck].actions.length)
+    ]);
   },
 
-  randomAdjective(luck) {
-    return (this.adjective = this.chanceAdjectives[luck].adjectives.Math.floor(
-      Math.random() * this.chanceAdjectives[luck].adjectives.length
-    ));
+  randomLuckAdjective(luck) {
+    return (this.luckAdjective = this.luckAdjectives[luck].adjectives[
+      Math.floor(Math.random() * this.luckAdjectives[luck].adjectives.length)
+    ]);
+  },
+  randomDayAdjective(luck) {
+    return (this.dayAdjective = this.dayAdjectives[luck].adjectives[
+      Math.floor(Math.random() * this.dayAdjectives[luck].adjectives.length)
+    ]);
   },
 
   randomWords() {
@@ -128,45 +144,48 @@ const horoscope = {
       Math.floor(Math.random() * this.zodiacSigns.length)
     ];
     this.theme = this.themes[Math.floor(Math.random() * this.themes.length)];
-    switch (this.luck()) {
+    switch (this.isLucky()) {
       case true:
-        this.adjective = this.randomAdjective("lucky");
+        this.luckAdjective = this.randomLuckAdjective("lucky");
+        this.dayAdjective = this.randomDayAdjective("lucky");
         switch (this.theme) {
           case "Amour":
-            this.action = this.randomLuckyAction(love);
+            this.action = this.randomLuckyAction("love", "lucky");
             break;
           case "Quarantaine":
-            this.action = this.randomLuckyAction(quarantine);
+            this.action = this.randomLuckyAction("quarantine", "lucky");
             break;
           case "Travail":
-            this.action = this.randomLuckyAction(work);
+            this.action = this.randomLuckyAction("work", "lucky");
             break;
           case "Argent":
-            this.action = this.randomLuckyAction(money);
+            this.action = this.randomLuckyAction("money", "lucky");
             break;
           case "Santé":
-            this.action = this.randomLuckyAction(health);
+            this.action = this.randomLuckyAction("health", "lucky");
             break;
           default:
             return "this is an unexpected action";
         }
+        break;
       case false:
-        this.adjective = randomAdjective(unluck);
+        this.luckAdjective = this.randomLuckAdjective("unlucky");
+        this.dayAdjective = this.randomDayAdjective("unlucky");
         switch (this.theme) {
           case "Amour":
-            this.action = this.randomUnluckyAction(love);
+            this.action = this.randomLuckyAction("love", "unlucky");
             break;
           case "Quarantaine":
-            this.action = this.randomUnluckyAction(quarantine);
+            this.action = this.randomLuckyAction("quarantine", "unlucky");
             break;
           case "Travail":
-            this.action = this.randomUnluckyAction(work);
+            this.action = this.randomLuckyAction("work", "unlucky");
             break;
           case "Argent":
-            this.action = this.randomUnluckyAction(money);
+            this.action = this.randomLuckyAction("money", "unlucky");
             break;
           case "Santé":
-            this.action = this.randomUnluckyAction(health);
+            this.action = this.randomLuckyAction("health", "unlucky");
             break;
           default:
             return "this is an unexpected action";
@@ -176,9 +195,16 @@ const horoscope = {
     }
   },
   clg() {
-    console.log(this.adjective);
+    console.log(
+      `${this.zodiacSign} ${this.luckAdjective} ${this.dayAdjective} ${this.theme} ${this.action}`
+    );
+  },
+  sentence() {
+    this.randomWords();
+    console.log(
+      `Vous êtes du signe ${this.zodiacSign}. Sur le theme "${this.theme}" vous aurez ${this.luckAdjective} de chance aujourd'hui. Vous devriez ${this.action} car vous allez passer une journée ${this.dayAdjective}`
+    );
   },
 };
-
-horoscope.randomWords();
-horoscope.clg();
+horoscope.sentence();
+// horoscope.clg();
