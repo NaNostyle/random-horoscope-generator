@@ -1,6 +1,3 @@
-const sentence =
-  "Vous êtes du signe [signe]. Sur le theme [préfixe(de l', de la, du)] [theme] vous aurez [chanceAdjective] de chance aujourd'hui. Vous devriez [action] car vous allez passer une journée [dayAjective] j";
-
 const horoscope = {
   zodiacSign: "",
   theme: "",
@@ -128,15 +125,17 @@ const horoscope = {
     ]);
   },
 
+  random(element, elements, luck) {
+    return (element =
+      elements[luck].adjectives[
+        Math.floor(Math.random() * elements[luck].adjectives.length)
+      ]);
+  },
   randomLuckAdjective(luck) {
-    return (this.luckAdjective = this.luckAdjectives[luck].adjectives[
-      Math.floor(Math.random() * this.luckAdjectives[luck].adjectives.length)
-    ]);
+    return this.random(this.luckAdjective, this.luckAdjectives, luck);
   },
   randomDayAdjective(luck) {
-    return (this.dayAdjective = this.dayAdjectives[luck].adjectives[
-      Math.floor(Math.random() * this.dayAdjectives[luck].adjectives.length)
-    ]);
+    return this.random(this.dayAdjective, this.dayAdjectives, luck);
   },
 
   randomWords() {
